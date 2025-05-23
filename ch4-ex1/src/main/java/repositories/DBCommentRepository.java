@@ -1,6 +1,8 @@
 package repositories;
 
 
+import org.springframework.stereotype.Repository;
+
 import dao.Comment;
 
 public class DBCommentRepository implements CommentRepository{

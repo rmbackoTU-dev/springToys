@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import proxies.CommentNotificationProxy;
+import proxies.CommentPushNotificationProxy;
 import proxies.EmailCommentNotificationProxy;
 import repositories.CommentRepository;
 import repositories.DBCommentRepository;
@@ -27,9 +28,12 @@ public class ProjectConfiguration {
 	 * Adds email notification proxy to the Spring context
 	 */
 	@Bean
-	public CommentNotificationProxy commentNotificationProxy()
+	public CommentNotificationProxy[] commentNotificationProxys()
 	{
-		return new EmailCommentNotificationProxy();
+		EmailCommentNotificationProxy email=new EmailCommentNotificationProxy();
+		CommentPushNotificationProxy push=new CommentPushNotificationProxy();
+		CommentNotificationProxy[] proxies= {email, push};
+		return proxies;
 	}
 	
 	/**
@@ -40,9 +44,9 @@ public class ProjectConfiguration {
 	 * @return
 	 */
 	@Bean
-	public CommentService commentService(CommentRepository repo, CommentNotificationProxy proxy)
+	public CommentService commentService(CommentRepository repo, CommentNotificationProxy[] proxies)
 	{
-		return new CommentService(repo, proxy);
+		return new CommentService(repo, proxies);
 	}
 	
 	
