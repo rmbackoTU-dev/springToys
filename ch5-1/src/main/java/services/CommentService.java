@@ -9,7 +9,7 @@ public class CommentService implements SingletonAppService {
 	
 	public CommentService()
 	{
-		this.serviceID="ID: "+this.getClass().hashCode();
+		this.serviceID="ServiceID: "+this.hashCode();
 	}
 	
 	@Override
